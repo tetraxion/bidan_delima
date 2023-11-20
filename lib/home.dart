@@ -108,46 +108,86 @@ class Home extends StatelessWidget {
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: const Icon(
-                            Icons.date_range_outlined,
-                            size: 24.0,
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: const Icon(
+                                Icons.date_range_outlined,
+                                size: 24.0,
+                              ),
+                            ),
+                            Text(
+                              'Jadwal',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: const Icon(
-                            Icons.date_range_outlined,
-                            size: 24.0,
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: const Icon(
+                                Icons.date_range_outlined,
+                                size: 24.0,
+                              ),
+                            ),
+                            Text(
+                              'Jadwal',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: const Icon(
-                            Icons.date_range_outlined,
-                            size: 24.0,
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: const Icon(
+                                Icons.date_range_outlined,
+                                size: 24.0,
+                              ),
+                            ),
+                            Text(
+                              'Jadwal',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           width: 10,
                         ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: const Icon(
-                            Icons.date_range_outlined,
-                            size: 24.0,
-                          ),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              child: const Icon(
+                                Icons.date_range_outlined,
+                                size: 24.0,
+                              ),
+                            ),
+                            Text(
+                              'Jadwal',
+                              style: TextStyle(
+                                fontSize: 10,
+                                color: Colors.black,
+                              ),
+                            ),
+                          ],
                         ),
                       ],
                     ),
