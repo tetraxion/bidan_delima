@@ -14,7 +14,7 @@ class _SplashState extends State<Splash> {
   @override
   void initState() {
     super.initState();
-    Future.delayed(const Duration(seconds: 3), () {
+    Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const Home()),
@@ -28,7 +28,7 @@ class _SplashState extends State<Splash> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/loadingbg.png'), 
+            image: AssetImage('assets/images/loadingbg.png'),
             fit: BoxFit.cover,
           ),
         ),
@@ -36,9 +36,14 @@ class _SplashState extends State<Splash> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Image.asset('assets/images/logo.png', height: 150,),
-              const SizedBox(height: 30,),
-              if(defaultTargetPlatform == TargetPlatform.iOS)
+              Image.asset(
+                'assets/images/logo.png',
+                height: 150,
+              ),
+              const SizedBox(
+                height: 30,
+              ),
+              if (defaultTargetPlatform == TargetPlatform.iOS)
                 const CupertinoActivityIndicator(
                   color: Colors.white,
                   radius: 20,
@@ -46,7 +51,23 @@ class _SplashState extends State<Splash> {
               else
                 const CircularProgressIndicator(
                   color: Colors.white,
-                )
+                ),
+              SizedBox(
+                height: 5,
+              ),
+              Container(
+                height: 100,
+                width: 100,
+                child: Center(
+                  child: Text(
+                    "Created by Kelompok",
+                    style: TextStyle(
+                      fontSize: 10.0,
+                      color: Colors.black,fontWeight: FontWeight.w400
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
