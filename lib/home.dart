@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class Home extends StatelessWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,7 +22,7 @@ class Home extends StatelessWidget {
         child: Stack(
           children: [
             Container(
-              height: 190,
+              height: 253,
               decoration: const BoxDecoration(
                 color: Color.fromARGB(255, 232, 194, 194),
               ),
@@ -86,114 +87,173 @@ class Home extends StatelessWidget {
             Positioned(
               left: 0,
               right: 0,
-              top: 130,
+              top: 190,
               bottom: 0,
               child: SingleChildScrollView(
                   child: Column(
                 children: [
-                  Container(
-                    height: 100,
-                    width: 300,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: Colors.white,
-                      boxShadow: [
-                        BoxShadow(
-                          color: Color(0x19000000),
-                          blurRadius: 24,
-                          offset: Offset(0, 11),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: const Icon(
-                                Icons.date_range_outlined,
-                                size: 24.0,
-                              ),
-                            ),
-                            Text(
-                              'Jadwal',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                              ),
+                  Column(
+                    children: [
+                      Container(
+                        height: 90,
+                        width: 350,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          color: Colors.white,
+                          boxShadow: [
+                            BoxShadow(
+                              color: Color(0x19000000),
+                              blurRadius: 24,
+                              offset: Offset(0, 11),
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: [
-                            Container(
-                              child: const Icon(
-                                Icons.date_range_outlined,
-                                size: 24.0,
-                              ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Image.asset(
+                                    "assets/icon/icon_search.png",
+                                    width: 120.0,
+                                    height: 120.0,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  'Jadwal',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
                             ),
-                            Text(
-                              'Jadwal',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                              ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Image.asset(
+                                    "assets/icon/icon_message.png",
+                                    width: 120.0,
+                                    height: 120.0,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 6,
+                                ),
+                                Text(
+                                  'Kontak Bidan',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Image.asset(
+                                    "assets/icon/icon_question.png",
+                                    width: 120.0,
+                                    height: 120.0,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Text(
+                                  'FAQ',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  width: 30,
+                                  height: 30,
+                                  child: Image.asset(
+                                    "assets/icon/icon_heart.png",
+                                    width: 120.0,
+                                    height: 120.0,
+                                    fit: BoxFit.fill,
+                                  ),
+                                ),
+                                Text(
+                                  'Masukan dan\nSaran',
+                                  style: TextStyle(
+                                    fontSize: 10,
+                                    color: Colors.black,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
+                              ],
                             ),
                           ],
                         ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: const Icon(
-                                Icons.date_range_outlined,
-                                size: 24.0,
-                              ),
-                            ),
-                            Text(
-                              'Jadwal',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              child: const Icon(
-                                Icons.date_range_outlined,
-                                size: 24.0,
-                              ),
-                            ),
-                            Text(
-                              'Jadwal',
-                              style: TextStyle(
-                                fontSize: 10,
-                                color: Colors.black,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               )),
+            ),
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 290,
+              bottom: 0,
+              child: SingleChildScrollView(
+                child: Container(
+                  padding: EdgeInsets.all(8.0),
+                  width: 200,
+                  child: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: Text(
+                      DateFormat('EEEE, d\nMMMM\nyyyy', 'en_US')
+                          .format(DateTime.now()),
+                      style: TextStyle(
+                        fontSize: 45,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        shadows: [
+                          Shadow(
+                            color:
+                                Colors.black.withOpacity(0.6), 
+                            blurRadius: 5, 
+                            offset: Offset(0, 5), 
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
