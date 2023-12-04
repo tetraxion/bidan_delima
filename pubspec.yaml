@@ -37,10 +37,15 @@ dependencies:
   cupertino_icons: ^1.0.2
   intl: ^0.18.1
   firebase_core: ^2.23.0
-  firebase_auth: ^4.14.1
+  firebase_auth: ^4.15.0
   material_color_utilities: ^0.5.0
   meta: ^1.10.0
   web: ^0.3.0
+  image_picker: ^1.0.4
+  permission_handler: ^11.1.0
+  file_selector: ^1.0.1
+  file_picker: ^6.1.1
+  dio: ^5.3.4
 
 dev_dependencies:
   flutter_test:
