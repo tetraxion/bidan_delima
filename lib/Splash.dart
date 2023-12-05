@@ -1,4 +1,5 @@
 import 'package:bidan1/home.dart';
+import 'package:bidan1/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +18,7 @@ class _SplashState extends State<Splash> {
     Future.delayed(const Duration(seconds: 1), () {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => const Home()),
+        MaterialPageRoute(builder: (context) => const Login()),
       );
     });
   }
