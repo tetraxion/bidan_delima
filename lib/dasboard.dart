@@ -7,6 +7,7 @@ import 'package:bidan1/utilis.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
+import 'package:bidan1/EditPage.dart';
 
 class DashboardBidan extends StatefulWidget {
   const DashboardBidan({super.key});
@@ -65,7 +66,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
           child: Stack(
             children: [
               Container(
-                height: 253,
+                height: 150,
                 decoration: const BoxDecoration(
                   color: Color.fromARGB(255, 232, 194, 194),
                 ),
@@ -85,7 +86,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
                       width: 10,
                     ),
                     Container(
-                      height: 100,
+                      height: 90,
                       decoration: const BoxDecoration(
                         color: Color.fromARGB(255, 232, 194, 194),
                       ),
@@ -127,7 +128,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
               Positioned(
                   left: 8,
                   right: 8,
-                  top: 190,
+                  top: 120,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -341,18 +342,14 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                           Container(
                                             width: 30,
                                             height: 30,
-                                            child: Image.asset(
-                                              "assets/icon/icon_question.png",
-                                              width: 120.0,
-                                              height: 120.0,
-                                              fit: BoxFit.fill,
+                                            child: Icon(
+                                              Icons
+                                                  .access_alarm, // Ganti dengan ikon yang sesuai
+                                              color: const Color.fromARGB(255, 255, 255, 255), // Ganti dengan warna yang diinginkan
                                             ),
                                           ),
-                                          SizedBox(
-                                            height: 6,
-                                          ),
                                           Text(
-                                            'FAQ',
+                                            '',
                                             style: TextStyle(
                                               fontSize: 10,
                                               color: Colors.black,
@@ -360,7 +357,8 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                           ),
                                         ],
                                       ),
-                                    )
+                                    ),
+                                    SizedBox(width: 30)
                                   ],
                                 ),
                               ),
@@ -370,24 +368,49 @@ class _DashboardBidanState extends State<DashboardBidan> {
                       ],
                     ),
                   )),
+              //=================================gest==========================
               Positioned(
                 right: 3,
-                top: 186,
-                child: Container(
-                  child: Image.asset(
-                    "assets/icon/icon_plus.png",
-                    width: 130.0,
-                    height: 188.0,
-                    fit: BoxFit.fill,
+                top: 110,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditPage()),
+                    );
+                  },
+                  child: Container(
+                    height: 130,
+                    width: 123,
+                    child: Image.asset(
+                      "assets/icon/icon_plus.png",
+                      width: 122.0,
+                      height: 200.0,
+                      fit: BoxFit.fill,
+                    ),
                   ),
-                  height: 115,
-                  width: 115,
                 ),
               ),
+
+              //=================================gest==========================
+              // Positioned(
+              //   right: 3,
+              //   top: 186,
+              //   child: Container(
+              //     child: Image.asset(
+              //       "assets/icon/icon_plus.png",
+              //       width: 130.0,
+              //       height: 188.0,
+              //       fit: BoxFit.fill,
+              //     ),
+              //     height: 115,
+              //     width: 115,
+              //   ),
+              // ),
               Positioned(
                 left: 0,
                 right: 0,
-                top: 290,
+                top: 240,
                 child: SingleChildScrollView(
                   child: Container(
                     padding: EdgeInsets.all(8.0),
@@ -417,7 +440,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
               Positioned(
                 left: 0,
                 right: 0,
-                top: 500,
+                top: 490,
                 child: Container(
                   height: 355,
                   decoration: const BoxDecoration(
@@ -431,7 +454,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
                     children: [
                       Container(
                         child: Padding(
-                          padding: const EdgeInsets.all(30.0),
+                          padding: const EdgeInsets.all(15.0),
                           child: Text(
                             "Jadwal Hari ini",
                             textAlign: TextAlign.start,
@@ -446,50 +469,50 @@ class _DashboardBidanState extends State<DashboardBidan> {
                         children: [
                           Card(
                             child: Padding(
-                              padding: EdgeInsets.all(12.0),
+                              padding: EdgeInsets.all(18.0),
                               child: Row(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    width: 90,
-                                    height: 90,
-                                    margin: EdgeInsets.only(right: 10.0),
-                                    decoration: BoxDecoration(
-                                      image: DecorationImage(
-                                        image: NetworkImage(
-                                          "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(16.0),
-                                      ),
-                                      color: Colors.blue[400],
-                                    ),
-                                    child: Stack(
-                                      children: [
-                                        Container(
-                                          padding: EdgeInsets.all(6.0),
-                                          margin: EdgeInsets.all(8.0),
-                                          decoration: BoxDecoration(
-                                            color: Colors.green[800],
-                                            borderRadius: BorderRadius.all(
-                                              Radius.circular(
-                                                12.0,
-                                              ),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            "PROMO",
-                                            style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 8.0,
-                                            ),
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
+                                  // Container(
+                                  //   width: 90,
+                                  //   height: 90,
+                                  //   margin: EdgeInsets.only(right: 10.0),
+                                  //   decoration: BoxDecoration(
+                                  //     image: DecorationImage(
+                                  //       image: NetworkImage(
+                                  //         "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
+                                  //       ),
+                                  //       fit: BoxFit.cover,
+                                  //     ),
+                                  //     borderRadius: BorderRadius.all(
+                                  //       Radius.circular(16.0),
+                                  //     ),
+                                  //     color: Colors.blue[400],
+                                  //   ),
+                                  //   child: Stack(
+                                  //     children: [
+                                  //       Container(
+                                  //         padding: EdgeInsets.all(6.0),
+                                  //         margin: EdgeInsets.all(8.0),
+                                  //         decoration: BoxDecoration(
+                                  //           color: Colors.green[800],
+                                  //           borderRadius: BorderRadius.all(
+                                  //             Radius.circular(
+                                  //               12.0,
+                                  //             ),
+                                  //           ),
+                                  //         ),
+                                  //         child: Text(
+                                  //           "PROMO",
+                                  //           style: TextStyle(
+                                  //             color: Colors.white,
+                                  //             fontSize: 8.0,
+                                  //           ),
+                                  //         ),
+                                  //       ),
+                                  //     ],
+                                  //   ),
+                                  // ),
                                   Expanded(
                                     child: Column(
                                       crossAxisAlignment:
