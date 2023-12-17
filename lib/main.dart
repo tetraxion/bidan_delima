@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Splash Screen',
-      home: Splash (),
+      home: DashboardBidan (),
       debugShowCheckedModeBanner: false,
     );
   }
