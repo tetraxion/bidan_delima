@@ -258,284 +258,355 @@ class Home extends StatelessWidget {
                 ),
               ),
             ),
-            Expanded(
-              child: Container(
-                transform: Matrix4.translationValues(0.0, 460, 0),
-                child: Column(
-                  children: [
-                    Expanded(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        transform: Matrix4.translationValues(0.0, 20, 0),
-                        decoration: const BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(32.0),
-                                topRight: Radius.circular(32.0))),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              width: MediaQuery.of(context).size.width,
-                              child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Text(
-                                  "Jadwal Hari Ini",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      fontSize: 20.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
+            // Expanded(
+            //   child: Container(
+            //     transform: Matrix4.translationValues(0.0, 460, 0),
+            //     child: Column(
+            //       children: [
+            //         Expanded(
+            //           child: Container(
+            //             width: MediaQuery.of(context).size.width,
+            //             transform: Matrix4.translationValues(0.0, 20, 0),
+            //             decoration: const BoxDecoration(
+            //                 color: Colors.white,
+            //                 borderRadius: BorderRadius.only(
+            //                     topLeft: Radius.circular(32.0),
+            //                     topRight: Radius.circular(32.0))),
+            //             child: Column(
+            //               crossAxisAlignment: CrossAxisAlignment.start,
+            //               children: [
+            //                 Container(
+            //                   width: MediaQuery.of(context).size.width,
+            //                   child: Padding(
+            //                     padding: const EdgeInsets.all(8.0),
+            //                     child: Text(
+            //                       "Jadwal Hari Ini",
+            //                       textAlign: TextAlign.center,
+            //                       style: TextStyle(
+            //                           fontSize: 20.0,
+            //                           color: Colors.black,
+            //                           fontWeight: FontWeight.bold),
+            //                     ),
+            //                   ),
+            //                 ),
+            //                 Expanded(
+            //                   child: ListView(
+            //                     padding: const EdgeInsets.all(0.0),
+            //                     children: [
+            //                       Column(
+            //                         children: [
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                           Container(
+            //                             height: 40,
+            //                             width: 350,
+            //                             decoration: BoxDecoration(
+            //                               color: const Color.fromARGB(
+            //                                   255, 202, 196, 195),
+            //                               borderRadius: BorderRadius.all(
+            //                                 Radius.circular(
+            //                                   10.0,
+            //                                 ),
+            //                               ),
+            //                             ),
+            //                             child: Row(
+            //                               mainAxisAlignment:
+            //                                   MainAxisAlignment.spaceEvenly,
+            //                               children: [
+            //                                 Text(
+            //                                   "Ayu Puspita",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                                 SizedBox(
+            //                                   width: 5,
+            //                                 ),
+            //                                 Text(
+            //                                   "KUNJUNGAN 1",
+            //                                   style: TextStyle(fontSize: 20),
+            //                                 ),
+            //                               ],
+            //                             ),
+            //                           ),
+            //                           SizedBox(
+            //                             height: 10,
+            //                           ),
+            //                         ],
+            //                       ),
+            //                     ],
+            //                   ),
+            //                 ),
+            //               ],
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //     ),
+            //   ),
+            // )
+            Positioned(
+              left: 0,
+              right: 0,
+              top: 500,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height,
+                  decoration: const BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(32.0),
+                      topRight: Radius.circular(32.0),
+                    ),
+                  ),
+                  child: Column(
+                    children: [
+                      Container(
+                        child: Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Text(
+                            "Kunjungan Hari ini",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                              fontSize: 24.0,
+                              color: Colors.black,
+                            ),
+                          ),
+                        ),
+                      ),
+                      ListView.builder(
+                        shrinkWrap: true,
+                        itemCount:
+                            20, // Replace with the actual number of items
+                        itemBuilder: (context, index) {
+                          return Padding(
+                            padding: EdgeInsets.all(12.0),
+                            child: Container(
+                              height: 40,
+                              width: 350,
+                              decoration: BoxDecoration(
+                                color: const Color.fromARGB(255, 202, 196, 195),
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(10.0),
                                 ),
                               ),
-                            ),
-                            Expanded(
-                              child: ListView(
-                                padding: const EdgeInsets.all(0.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
-                                  Column(
-                                    children: [
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                      Container(
-                                        height: 40,
-                                        width: 350,
-                                        decoration: BoxDecoration(
-                                          color: const Color.fromARGB(
-                                              255, 202, 196, 195),
-                                          borderRadius: BorderRadius.all(
-                                            Radius.circular(
-                                              10.0,
-                                            ),
-                                          ),
-                                        ),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
-                                          children: [
-                                            Text(
-                                              "Ayu Puspita",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                            SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              "KUNJUNGAN 1",
-                                              style: TextStyle(fontSize: 20),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: 10,
-                                      ),
-                                    ],
+                                  Text(
+                                    "Ayu Puspita",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "KUNJUNGAN 1",
+                                    style: TextStyle(fontSize: 20),
                                   ),
                                 ],
                               ),
                             ),
-                          ],
-                        ),
+                          );
+                        },
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             )
