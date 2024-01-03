@@ -48,6 +48,7 @@ dependencies:
   dio: ^5.3.4
   cloud_firestore: ^4.13.6
   url_launcher: ^6.2.2
+  syncfusion_flutter_datepicker: ^21.2.3
 
 
 dev_dependencies:

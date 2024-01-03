@@ -1,5 +1,8 @@
+// edit.dart
+
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:intl/intl.dart';
 
 class EditPage extends StatefulWidget {
   const EditPage({Key? key}) : super(key: key);
@@ -14,9 +17,8 @@ class _EditPageState extends State<EditPage> {
   TextEditingController umurtextcontroller = TextEditingController();
   TextEditingController penyakitKronistextcontroller = TextEditingController();
   TextEditingController nomorTelepontextcontroller = TextEditingController();
-  TextEditingController tanggalKunjungantextcontroller = TextEditingController();
+  DateTime? selectedDate;
 
-  // Inisialisasi Firestore
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   @override
@@ -120,8 +122,7 @@ class _EditPageState extends State<EditPage> {
                             child: TextFormField(
                               controller: umurtextcontroller,
                               decoration: InputDecoration(labelText: 'Umur'),
-                              keyboardType: TextInputType
-                                  .number, // angka
+                              keyboardType: TextInputType.number,
                             ),
                           ),
                           Container(
@@ -144,10 +145,18 @@ class _EditPageState extends State<EditPage> {
                           Container(
                             margin: EdgeInsets.only(bottom: 8.0),
                             child: TextFormField(
-                              controller: tanggalKunjungantextcontroller,
-                              decoration:
-                                  InputDecoration(labelText: 'Tanggal Kunjungan'),
-                              
+                              onTap: () {
+                                _selectDate(context);
+                              },
+                              readOnly: true,
+                              decoration: InputDecoration(
+                                labelText: 'Tanggal Kunjungan',
+                              ),
+                              controller: TextEditingController(
+                                text: selectedDate != null
+                                    ? DateFormat('dd-MM-yyyy').format(selectedDate!)
+                                    : '',
+                              ),
                             ),
                           ),
                           SizedBox(height: 16.0),
@@ -155,7 +164,6 @@ class _EditPageState extends State<EditPage> {
                             padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: ElevatedButton(
                               onPressed: () {
-                                //Menambahkan data
                                 _tambahData();
                               },
                               style: ElevatedButton.styleFrom(
@@ -177,7 +185,19 @@ class _EditPageState extends State<EditPage> {
     );
   }
 
-  // Fungsi untuk menambahkan data ke Firestore
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDate)
+      setState(() {
+        selectedDate = picked;
+      });
+  }
+
   void _tambahData() async {
     try {
       await _firestore.collection('kunjungan').add({
@@ -186,26 +206,26 @@ class _EditPageState extends State<EditPage> {
         'umur': int.tryParse(umurtextcontroller.text) ?? 0,
         'penyakitKronis': penyakitKronistextcontroller.text,
         'nomorTelepon': nomorTelepontextcontroller.text,
-        'tanggalKunjungan': tanggalKunjungantextcontroller.text,
+        'tanggalKunjungan': selectedDate != null
+            ? DateFormat('dd-MM-yyyy').format(selectedDate!)
+            : '',
       });
 
-      // Setelah data ditambahkan, Anda bisa tambahkan logika navigasi atau feedback ke pengguna di sini.
-      // Contoh:
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text('Data kunjungan berhasil ditambahkan!'),
         ),
       );
 
-      // Clear input fi elds
       namatextcontroller.clear();
       alamattextcontroller.clear();
       umurtextcontroller.clear();
       penyakitKronistextcontroller.clear();
       nomorTelepontextcontroller.clear();
-      tanggalKunjungantextcontroller.clear();
+      setState(() {
+        selectedDate = null;
+      });
     } catch (e) {
-      // Tangani kesalahan jika terjadi
       print('Error: $e');
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -214,4 +234,4 @@ class _EditPageState extends State<EditPage> {
       );
     }
   }
-} 
+}

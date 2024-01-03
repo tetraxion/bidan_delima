@@ -8,12 +8,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:bidan1/EditPage.dart';
+import 'package:bidan1/tambahData.dart';
+
 class DashboardBidan extends StatefulWidget {
   const DashboardBidan({super.key});
   @override
   State<DashboardBidan> createState() => _DashboardBidanState();
 }
+
 class _DashboardBidanState extends State<DashboardBidan> {
   File? _image;
   Future<void> _selectImage() async {
@@ -32,6 +34,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
       print("Error picking image: $e");
     }
   }
+
   List<String> docIDs = [];
   Future getDocId() async {
     await FirebaseFirestore.instance
@@ -42,6 +45,24 @@ class _DashboardBidanState extends State<DashboardBidan> {
               docIDs.add(document.reference.id);
             }));
   }
+
+  Future<void> hapusData(String docId) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('kunjungan')
+          .doc(docId)
+          .delete();
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Data berhasil dihapus!')),
+      );
+    } catch (e) {
+      print('Error: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Terjadi kesalahan saat menghapus data.')),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -277,7 +298,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EditPage()),
+                      MaterialPageRoute(builder: (context) => tambahPage()),
                     );
                   },
                   child: Container(
@@ -363,28 +384,24 @@ class _DashboardBidanState extends State<DashboardBidan> {
                               shrinkWrap: true,
                               itemCount: docIDs.length,
                               itemBuilder: (context, index) {
-                                return Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Container(
-                                    height: 40,
-                                    width: 350,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 202, 196, 195),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          (docIDs[index]),
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                      ],
-                                    ),
+                                final docId = docIDs[index];
+                                return Dismissible(
+                                  key: Key(docId),
+                                  onDismissed: (direction) {
+                                    hapusData(docId);
+                                    setState(() {
+                                      docIDs.removeAt(index);
+                                    });
+                                  },
+                                  background: Container(
+                                    color: Colors.red,
+                                    child:
+                                        Icon(Icons.delete, color: Colors.white),
+                                    alignment: Alignment.centerRight,
+                                    padding: EdgeInsets.only(right: 20.0),
+                                  ),
+                                  child: ListTile(
+                                    title: Text(docId),
                                   ),
                                 );
                               },
@@ -404,10 +421,8 @@ class _DashboardBidanState extends State<DashboardBidan> {
   }
 }
 
-
 class PopupIcon extends StatelessWidget {
   const PopupIcon({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -424,7 +439,7 @@ class PopupIcon extends StatelessWidget {
               TextButton(
                 onPressed: () {
                   Navigator.pop(context, 'Ya');
-                  logoutUser(context); 
+                  logoutUser(context);
                 },
                 child: const Text('YA'),
               ),
