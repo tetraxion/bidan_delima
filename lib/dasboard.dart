@@ -2,40 +2,28 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
 import 'package:bidan1/home.dart';
+import 'package:bidan1/logout.dart';
 import 'package:bidan1/utilis.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:bidan1/EditPage.dart';
-
 class DashboardBidan extends StatefulWidget {
   const DashboardBidan({super.key});
-
   @override
   State<DashboardBidan> createState() => _DashboardBidanState();
 }
-
 class _DashboardBidanState extends State<DashboardBidan> {
-  // Uint8List? _image;
-
-  // Future<void> selectImage() async {
-  //   Uint8List img = await pickImage(ImageSource.gallery);
-  //   setState(() {
-  //     _image = img;
-  //   });
-  // }
   File? _image;
-
   Future<void> _selectImage() async {
     try {
       final pickedFile = await ImagePicker().pickImage(
         source: ImageSource.gallery,
         imageQuality: 40,
       );
-
       if (pickedFile != null) {
         print("Selected image path: ${pickedFile.path}");
-
         setState(() {
           _image = File(pickedFile.path);
         });
@@ -44,15 +32,20 @@ class _DashboardBidanState extends State<DashboardBidan> {
       print("Error picking image: $e");
     }
   }
-
+  List<String> docIDs = [];
+  Future getDocId() async {
+    await FirebaseFirestore.instance
+        .collection('kunjungan')
+        .get()
+        .then((snapshot) => snapshot.docs.forEach((document) {
+              print(document.reference);
+              docIDs.add(document.reference.id);
+            }));
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   elevation: 0.0,
-      //   backgroundColor: Color.fromARGB(255, 232, 194, 194),
-      // ),
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
@@ -158,94 +151,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    // Column(
-                                    //   mainAxisAlignment:
-                                    //       MainAxisAlignment.center,
-                                    //   children: [
-                                    //     Container(
-                                    //       width: 30,
-                                    //       height: 30,
-                                    //       child: Image.asset(
-                                    //         "assets/icon/icon_search.png",
-                                    //         width: 120.0,
-                                    //         height: 120.0,
-                                    //         fit: BoxFit.fill,
-                                    //       ),
-                                    //     ),
-                                    //     SizedBox(
-                                    //       height: 6,
-                                    //     ),
-                                    //     Text(
-                                    //       'Jadwal',
-                                    //       style: TextStyle(
-                                    //         fontSize: 10,
-                                    //         color: Colors.black,
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
-                                    // Stack(
-                                    //   children: [
-                                    //     CircleAvatar(
-                                    //       radius: 40,
-                                    //       foregroundColor: Colors.grey,
-                                    //       backgroundImage: AssetImage(
-                                    //           "assets/icon/icon_input.png"),
-                                    //     ),
-                                    //     Positioned(
-                                    //       top: -10,
-                                    //       child: IconButton(
-                                    //         onPressed: () {},
-                                    //         icon: const Icon(
-                                    //           Icons.add_a_photo,
-                                    //           size: 15.0,
-                                    //         ),
-                                    //       ),
-                                    //     )
-                                    //   ],
-                                    // ),
-                                    // Stack(
-                                    //   children: [
-                                    //     _image != null
-                                    //         ? CircleAvatar(
-                                    //             radius: 40,
-                                    //             backgroundImage:
-                                    //                 FileImage(_image!),
-                                    //             boxShadow: [
-                                    //               BoxShadow(
-                                    //                 color: Colors.black
-                                    //                     .withOpacity(0.2),
-                                    //                 blurRadius: 8.0,
-                                    //                 offset: Offset(0, 4),
-                                    //               ),
-                                    //             ],
-                                    //           )
-                                    //         : CircleAvatar(
-                                    //             radius: 40,
-                                    //             backgroundImage: AssetImage(
-                                    //                 "assets/icon/icon_input.png"),
-                                    //             backgroundColor: Colors.white,
-                                    //             boxShadow: [
-                                    //               BoxShadow(
-                                    //                 color: Colors.black
-                                    //                     .withOpacity(0.2),
-                                    //                 blurRadius: 8.0,
-                                    //                 offset: Offset(0, 4),
-                                    //               ),
-                                    //             ],
-                                    //           ),
-                                    //     Positioned(
-                                    //       top: -10,
-                                    //       child: IconButton(
-                                    //         onPressed: _selectImage,
-                                    //         icon: const Icon(
-                                    //           Icons.add_a_photo,
-                                    //           size: 15.0,
-                                    //         ),
-                                    //       ),
-                                    //     ),
-                                    //   ],
-                                    // ),
                                     Stack(
                                       children: [
                                         _image != null
@@ -258,8 +163,7 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                                 radius: 40,
                                                 backgroundImage: AssetImage(
                                                     "assets/icon/icon_input.png"),
-                                                backgroundColor: Colors
-                                                    .blue, // Ganti warna latar belakang
+                                                backgroundColor: Colors.blue,
                                               ),
                                         Positioned(
                                           top: -10,
@@ -273,7 +177,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                         ),
                                       ],
                                     ),
-
                                     SizedBox(
                                       width: 10,
                                     ),
@@ -342,9 +245,9 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                             width: 30,
                                             height: 30,
                                             child: Icon(
-                                              Icons
-                                                  .access_alarm, // Ganti dengan ikon yang sesuai
-                                              color: const Color.fromARGB(255, 255, 255, 255), // Ganti dengan warna yang diinginkan
+                                              Icons.access_alarm,
+                                              color: const Color.fromARGB(
+                                                  255, 255, 255, 255),
                                             ),
                                           ),
                                           Text(
@@ -367,7 +270,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
                       ],
                     ),
                   )),
-              //=================================gest==========================
               Positioned(
                 right: 3,
                 top: 110,
@@ -390,22 +292,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
                   ),
                 ),
               ),
-
-              //=================================gest==========================
-              // Positioned(
-              //   right: 3,
-              //   top: 186,
-              //   child: Container(
-              //     child: Image.asset(
-              //       "assets/icon/icon_plus.png",
-              //       width: 130.0,
-              //       height: 188.0,
-              //       fit: BoxFit.fill,
-              //     ),
-              //     height: 115,
-              //     width: 115,
-              //   ),
-              // ),
               Positioned(
                 left: 0,
                 right: 0,
@@ -464,131 +350,47 @@ class _DashboardBidanState extends State<DashboardBidan> {
                           ),
                         ),
                       ),
-                      Column(
-                        children: [
-                          Card(
-                            child: Padding(
-                              padding: EdgeInsets.all(18.0),
-                              child: Row(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Container(
-                                  //   width: 90,
-                                  //   height: 90,
-                                  //   margin: EdgeInsets.only(right: 10.0),
-                                  //   decoration: BoxDecoration(
-                                  //     image: DecorationImage(
-                                  //       image: NetworkImage(
-                                  //         "https://images.unsplash.com/photo-1528735602780-2552fd46c7af?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1173&q=80",
-                                  //       ),
-                                  //       fit: BoxFit.cover,
-                                  //     ),
-                                  //     borderRadius: BorderRadius.all(
-                                  //       Radius.circular(16.0),
-                                  //     ),
-                                  //     color: Colors.blue[400],
-                                  //   ),
-                                  //   child: Stack(
-                                  //     children: [
-                                  //       Container(
-                                  //         padding: EdgeInsets.all(6.0),
-                                  //         margin: EdgeInsets.all(8.0),
-                                  //         decoration: BoxDecoration(
-                                  //           color: Colors.green[800],
-                                  //           borderRadius: BorderRadius.all(
-                                  //             Radius.circular(
-                                  //               12.0,
-                                  //             ),
-                                  //           ),
-                                  //         ),
-                                  //         child: Text(
-                                  //           "PROMO",
-                                  //           style: TextStyle(
-                                  //             color: Colors.white,
-                                  //             fontSize: 8.0,
-                                  //           ),
-                                  //         ),
-                                  //       ),
-                                  //     ],
-                                  //   ),
-                                  // ),
-                                  Expanded(
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                      FutureBuilder(
+                        future: getDocId(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            return ListView.builder(
+                              shrinkWrap: true,
+                              itemCount: docIDs.length,
+                              itemBuilder: (context, index) {
+                                return Padding(
+                                  padding: EdgeInsets.all(12.0),
+                                  child: Container(
+                                    height: 40,
+                                    width: 350,
+                                    decoration: BoxDecoration(
+                                      color: const Color.fromARGB(
+                                          255, 202, 196, 195),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(10.0),
+                                      ),
+                                    ),
+                                    child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.start,
+                                          MainAxisAlignment.spaceEvenly,
                                       children: [
                                         Text(
-                                          "Roti bakar Cimanggis",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 6.0,
-                                        ),
-                                        Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: [
-                                            Text(
-                                              "8.1 km",
-                                              style: TextStyle(
-                                                fontSize: 10.0,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width: 4.0,
-                                            ),
-                                            Icon(
-                                              Icons.circle,
-                                              size: 4.0,
-                                            ),
-                                            SizedBox(
-                                              width: 4.0,
-                                            ),
-                                            Icon(
-                                              Icons.star,
-                                              color: Colors.orange[400],
-                                              size: 16.0,
-                                            ),
-                                            Text(
-                                              "4.8",
-                                              style: TextStyle(
-                                                fontSize: 10.0,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        SizedBox(
-                                          height: 6.0,
-                                        ),
-                                        Text(
-                                          "Bakery & Cake . Breakfast . Snack",
-                                          style: TextStyle(
-                                            fontSize: 10.0,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          height: 6.0,
-                                        ),
-                                        Text(
-                                          "€24",
-                                          style: TextStyle(
-                                            fontSize: 14.0,
-                                            fontWeight: FontWeight.bold,
-                                          ),
+                                          (docIDs[index]),
+                                          style: TextStyle(fontSize: 20),
                                         ),
                                       ],
                                     ),
                                   ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
+                                );
+                              },
+                            );
+                          }
+                        },
                       ),
                     ],
                   ),
@@ -596,6 +398,48 @@ class _DashboardBidanState extends State<DashboardBidan> {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+
+class PopupIcon extends StatelessWidget {
+  const PopupIcon({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        showDialog<String>(
+          context: context,
+          builder: (BuildContext context) => AlertDialog(
+            title: const Text('Logout dari aplikasi?'),
+            actions: <Widget>[
+              TextButton(
+                onPressed: () => Navigator.pop(context, 'Batal'),
+                child: const Text('Batal'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context, 'Ya');
+                  logoutUser(context); 
+                },
+                child: const Text('YA'),
+              ),
+            ],
+          ),
+        );
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Color.fromARGB(255, 232, 194, 194),
+        ),
+        child: Icon(
+          Icons.logout_outlined,
+          size: 20.0,
+          color: Color.fromARGB(255, 239, 67, 124),
         ),
       ),
     );
