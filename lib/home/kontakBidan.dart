@@ -44,7 +44,7 @@ class Kontak extends StatelessWidget {
   }
 
   Future<void> _contactBidanDelima(BuildContext context) async {
-    final phoneNumber = '6282335481033';
+    final phoneNumber = '6282140060164';
     final message = 'Selamat datang di Bidan Delima! Apakah ada yang ingin Anda tanyakan?';
 
     final whatsappUrl = 'https://api.whatsapp.com/send?phone=$phoneNumber&text=${Uri.encodeFull(message)}';

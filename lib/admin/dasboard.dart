@@ -1,14 +1,14 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:bidan1/home.dart';
-import 'package:bidan1/logout.dart';
-import 'package:bidan1/utilis.dart';
+import 'package:bidan1/home/home.dart';
+import 'package:bidan1/aut/logout.dart';
+import 'package:bidan1/service/utilis.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:bidan1/tambahData.dart';
+import 'package:bidan1/admin/tambahData.dart';
 
 class DashboardBidan extends StatefulWidget {
   const DashboardBidan({super.key});

@@ -1,5 +1,5 @@
-import 'package:bidan1/home.dart';
-import 'package:bidan1/login.dart';
+import 'package:bidan1/home/home.dart';
+import 'package:bidan1/aut/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';

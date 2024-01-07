@@ -1,9 +1,9 @@
-import 'package:bidan1/Splash.dart';
-import 'package:bidan1/dasboard.dart';
-import 'package:bidan1/login.dart';
+import 'package:bidan1/splashScreen/Splash.dart';
+import 'package:bidan1/admin/dasboard.dart';
+import 'package:bidan1/aut/login.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'firebase_options.dart';
+import 'service/firebase_options.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
