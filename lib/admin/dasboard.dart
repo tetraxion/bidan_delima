@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:bidan1/admin/editData.dart';
 import 'package:bidan1/home/home.dart';
 import 'package:bidan1/aut/logout.dart';
 import 'package:bidan1/service/utilis.dart';
@@ -448,33 +449,44 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                     alignment: Alignment.centerRight,
                                     padding: EdgeInsets.only(right: 20.0),
                                   ),
-                                  child: Padding(
-                                    padding: EdgeInsets.all(12.0),
-                                    child: Container(
-                                      height: 40,
-                                      width: 350,
-                                      decoration: BoxDecoration(
-                                        color: const Color.fromARGB(
-                                            255, 202, 196, 195),
-                                        borderRadius: BorderRadius.all(
-                                          Radius.circular(10.0),
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              EditPage(docId: docId),
                                         ),
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceEvenly,
-                                        children: [
-                                          Text(
-                                            data['nama'] ??
-                                                'Nama tidak ditemukan',
-                                            style: TextStyle(fontSize: 20),
+                                      );
+                                    },
+                                    child: Padding(
+                                      padding: EdgeInsets.all(12.0),
+                                      child: Container(
+                                        height: 40,
+                                        width: 350,
+                                        decoration: BoxDecoration(
+                                          color: const Color.fromARGB(
+                                              255, 202, 196, 195),
+                                          borderRadius: BorderRadius.all(
+                                            Radius.circular(10.0),
                                           ),
-                                          Text(
-                                            data['kunjungan'] ??
-                                                'Kunjungan tidak ditemukan',
-                                            style: TextStyle(fontSize: 20),
-                                          ),
-                                        ],
+                                        ),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceEvenly,
+                                          children: [
+                                            Text(
+                                              data['nama'] ??
+                                                  'Nama tidak ditemukan',
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                            Text(
+                                              data['kunjungan'] ??
+                                                  'Kunjungan tidak ditemukan',
+                                              style: TextStyle(fontSize: 20),
+                                            ),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),

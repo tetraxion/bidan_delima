@@ -1,14 +1,31 @@
-// edit.dart
-
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Edit Page with DatePicker',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: EditPage(docId: 'someDocumentId'), // Gantikan dengan ID dokumen yang sesuai
+    );
+  }
+}
+
 class EditPage extends StatefulWidget {
-  const EditPage({Key? key}) : super(key: key);
+  final String docId;
+
+  EditPage({required this.docId});
 
   @override
-  State<EditPage> createState() => _EditPageState();
+  _EditPageState createState() => _EditPageState();
 }
 
 class _EditPageState extends State<EditPage> {
@@ -18,8 +35,79 @@ class _EditPageState extends State<EditPage> {
   TextEditingController penyakitKronistextcontroller = TextEditingController();
   TextEditingController nomorTelepontextcontroller = TextEditingController();
   DateTime? selectedDate;
-
+  String? selectedKunjungan;
+  final List<String> kunjunganOptions = ['Kunjungan1', 'Kunjungan2', 'Kunjungan3', 'Kunjungan4', 'Kunjungan5'];
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchData();
+  }
+
+  Future<void> _fetchData() async {
+    try {
+      final DocumentSnapshot document = await _firestore.collection('kunjungan').doc(widget.docId).get();
+      final data = document.data() as Map<String, dynamic>;
+
+      setState(() {
+        namatextcontroller.text = data['nama'] ?? '';
+        alamattextcontroller.text = data['alamat'] ?? '';
+        umurtextcontroller.text = data['umur'].toString() ?? '';
+        penyakitKronistextcontroller.text = data['penyakitKronis'] ?? '';
+        nomorTelepontextcontroller.text = data['nomorTelepon'] ?? '';
+        selectedKunjungan = data['kunjungan'];
+        selectedDate = data['tanggalKunjungan'] != null
+            ? DateFormat('dd-MM-yyyy').parse(data['tanggalKunjungan'])
+            : null;
+      });
+    } catch (e) {
+      print('Error fetching data: $e');
+    }
+  }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate ?? DateTime.now(),
+      firstDate: DateTime(1900),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+  Future<void> _updateData() async {
+    try {
+      await _firestore.collection('kunjungan').doc(widget.docId).update({
+        'nama': namatextcontroller.text,
+        'alamat': alamattextcontroller.text,
+        'umur': int.tryParse(umurtextcontroller.text) ?? 0,
+        'penyakitKronis': penyakitKronistextcontroller.text,
+        'nomorTelepon': nomorTelepontextcontroller.text,
+        'tanggalKunjungan': selectedDate != null
+            ? DateFormat('dd-MM-yyyy').format(selectedDate!)
+            : '',
+        'kunjungan': selectedKunjungan,
+      });
+
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Data kunjungan berhasil diperbarui!'),
+        ),
+      );
+    } catch (e) {
+      print('Error updating data: $e');
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text('Terjadi kesalahan. Silakan coba lagi.'),
+        ),
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -129,16 +217,14 @@ class _EditPageState extends State<EditPage> {
                             margin: EdgeInsets.only(bottom: 8.0),
                             child: TextFormField(
                               controller: penyakitKronistextcontroller,
-                              decoration:
-                                  InputDecoration(labelText: 'Penyakit Kronis'),
+                              decoration: InputDecoration(labelText: 'Penyakit Kronis'),
                             ),
                           ),
                           Container(
                             margin: EdgeInsets.only(bottom: 8.0),
                             child: TextFormField(
                               controller: nomorTelepontextcontroller,
-                              decoration:
-                                  InputDecoration(labelText: 'Nomor Telepon'),
+                              decoration: InputDecoration(labelText: 'Nomor Telepon'),
                               keyboardType: TextInputType.phone,
                             ),
                           ),
@@ -159,17 +245,37 @@ class _EditPageState extends State<EditPage> {
                               ),
                             ),
                           ),
+                          Container(
+                            margin: EdgeInsets.only(bottom: 8.0),
+                            child: DropdownButtonFormField(
+                              value: selectedKunjungan,
+                              items: kunjunganOptions.map((String kunjungan) {
+                                return DropdownMenuItem(
+                                  value: kunjungan,
+                                  child: Text(kunjungan),
+                                );
+                              }).toList(),
+                              onChanged: (String? value) {
+                                setState(() {
+                                  selectedKunjungan = value;
+                                });
+                              },
+                              decoration: InputDecoration(
+                                labelText: 'Kunjungan',
+                              ),
+                            ),
+                          ),
                           SizedBox(height: 16.0),
                           Padding(
                             padding: EdgeInsets.symmetric(horizontal: 16.0),
                             child: ElevatedButton(
                               onPressed: () {
-                                _tambahData();
+                                _updateData();
                               },
                               style: ElevatedButton.styleFrom(
                                 primary: Color.fromARGB(255, 255, 111, 111),
                               ),
-                              child: Text('Simpan'),
+                              child: Text('Simpan Perubahan'),
                             ),
                           )
                         ],
@@ -183,55 +289,5 @@ class _EditPageState extends State<EditPage> {
         ),
       ),
     );
-  }
-
-  Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDate ?? DateTime.now(),
-      firstDate: DateTime(1900),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDate)
-      setState(() {
-        selectedDate = picked;
-      });
-  }
-
-  void _tambahData() async {
-    try {
-      await _firestore.collection('kunjungan').add({
-        'nama': namatextcontroller.text,
-        'alamat': alamattextcontroller.text,
-        'umur': int.tryParse(umurtextcontroller.text) ?? 0,
-        'penyakitKronis': penyakitKronistextcontroller.text,
-        'nomorTelepon': nomorTelepontextcontroller.text,
-        'tanggalKunjungan': selectedDate != null
-            ? DateFormat('dd-MM-yyyy').format(selectedDate!)
-            : '',
-      });
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Data kunjungan berhasil ditambahkan!'),
-        ),
-      );
-
-      namatextcontroller.clear();
-      alamattextcontroller.clear();
-      umurtextcontroller.clear();
-      penyakitKronistextcontroller.clear();
-      nomorTelepontextcontroller.clear();
-      setState(() {
-        selectedDate = null;
-      });
-    } catch (e) {
-      print('Error: $e');
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text('Terjadi kesalahan. Silakan coba lagi.'),
-        ),
-      );
-    }
   }
 }
