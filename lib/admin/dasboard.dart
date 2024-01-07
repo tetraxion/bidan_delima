@@ -35,6 +35,15 @@ class _DashboardBidanState extends State<DashboardBidan> {
     }
   }
 
+  late Stream<QuerySnapshot> _kunjunganStream;
+
+  @override
+  void initState() {
+    super.initState();
+    _kunjunganStream =
+        FirebaseFirestore.instance.collection('kunjungan').snapshots();
+  }
+
   List<String> docIDs = [];
   Future getDocId() async {
     await FirebaseFirestore.instance
@@ -371,8 +380,46 @@ class _DashboardBidanState extends State<DashboardBidan> {
                           ),
                         ),
                       ),
-                      FutureBuilder(
-                        future: getDocId(),
+                      // FutureBuilder(
+                      //   future: getDocId(),
+                      //   builder: (context, snapshot) {
+                      //     if (snapshot.connectionState ==
+                      //         ConnectionState.waiting) {
+                      //       return CircularProgressIndicator();
+                      //     } else if (snapshot.hasError) {
+                      //       return Text('Error: ${snapshot.error}');
+                      //     } else {
+                      //       return ListView.builder(
+                      //         shrinkWrap: true,
+                      //         itemCount: docIDs.length,
+                      //         itemBuilder: (context, index) {
+                      //           final docId = docIDs[index];
+                      //           return Dismissible(
+                      //             key: Key(docId),
+                      //             onDismissed: (direction) {
+                      //               hapusData(docId);
+                      //               setState(() {
+                      //                 docIDs.removeAt(index);
+                      //               });
+                      //             },
+                      //             background: Container(
+                      //               color: Colors.red,
+                      //               child:
+                      //                   Icon(Icons.delete, color: Colors.white),
+                      //               alignment: Alignment.centerRight,
+                      //               padding: EdgeInsets.only(right: 20.0),
+                      //             ),
+                      //             child: ListTile(
+                      //               title: Text(docId),
+                      //             ),
+                      //           );
+                      //         },
+                      //       );
+                      //     }
+                      //   },
+                      // ),
+                      StreamBuilder<QuerySnapshot>(
+                        stream: _kunjunganStream,
                         builder: (context, snapshot) {
                           if (snapshot.connectionState ==
                               ConnectionState.waiting) {
@@ -380,18 +427,19 @@ class _DashboardBidanState extends State<DashboardBidan> {
                           } else if (snapshot.hasError) {
                             return Text('Error: ${snapshot.error}');
                           } else {
+                            final List<QueryDocumentSnapshot> documents =
+                                snapshot.data!.docs;
                             return ListView.builder(
                               shrinkWrap: true,
-                              itemCount: docIDs.length,
+                              itemCount: documents.length,
                               itemBuilder: (context, index) {
-                                final docId = docIDs[index];
+                                final data = documents[index].data()
+                                    as Map<String, dynamic>;
+                                final docId = documents[index].id;
                                 return Dismissible(
                                   key: Key(docId),
                                   onDismissed: (direction) {
                                     hapusData(docId);
-                                    setState(() {
-                                      docIDs.removeAt(index);
-                                    });
                                   },
                                   background: Container(
                                     color: Colors.red,
@@ -400,15 +448,42 @@ class _DashboardBidanState extends State<DashboardBidan> {
                                     alignment: Alignment.centerRight,
                                     padding: EdgeInsets.only(right: 20.0),
                                   ),
-                                  child: ListTile(
-                                    title: Text(docId),
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12.0),
+                                    child: Container(
+                                      height: 40,
+                                      width: 350,
+                                      decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                            255, 202, 196, 195),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(10.0),
+                                        ),
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text(
+                                            data['nama'] ??
+                                                'Nama tidak ditemukan',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                          Text(
+                                            data['kunjungan'] ??
+                                                'Kunjungan tidak ditemukan',
+                                            style: TextStyle(fontSize: 20),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
                                   ),
                                 );
                               },
                             );
                           }
                         },
-                      ),
+                      )
                     ],
                   ),
                 ),
