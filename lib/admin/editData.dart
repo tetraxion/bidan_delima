@@ -273,7 +273,7 @@ class _EditPageState extends State<EditPage> {
                                 _updateData();
                               },
                               style: ElevatedButton.styleFrom(
-                                primary: Color.fromARGB(255, 255, 111, 111),
+                                backgroundColor: Color.fromARGB(255, 255, 111, 111),
                               ),
                               child: Text('Simpan Perubahan'),
                             ),
