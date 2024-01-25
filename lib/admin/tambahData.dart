@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Edit Page with DatePicker',
+      title: 'Tambah Page with DatePicker',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
@@ -264,4 +264,4 @@ class _tambahPageState extends State<tambahPage> {
       );
     }
   }
-}
+}

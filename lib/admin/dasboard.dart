@@ -10,13 +10,11 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:bidan1/admin/tambahData.dart';
-
 class DashboardBidan extends StatefulWidget {
   const DashboardBidan({super.key});
   @override
   State<DashboardBidan> createState() => _DashboardBidanState();
 }
-
 class _DashboardBidanState extends State<DashboardBidan> {
   File? _image;
   Future<void> _selectImage() async {
@@ -35,16 +33,13 @@ class _DashboardBidanState extends State<DashboardBidan> {
       print("Error picking image: $e");
     }
   }
-
   late Stream<QuerySnapshot> _kunjunganStream;
-
   @override
   void initState() {
     super.initState();
     _kunjunganStream =
         FirebaseFirestore.instance.collection('kunjungan').snapshots();
   }
-
   List<String> docIDs = [];
   Future getDocId() async {
     await FirebaseFirestore.instance
@@ -55,7 +50,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
               docIDs.add(document.reference.id);
             }));
   }
-
   Future<void> hapusData(String docId) async {
     try {
       await FirebaseFirestore.instance
@@ -72,7 +66,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
       );
     }
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -381,44 +374,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
                           ),
                         ),
                       ),
-                      // FutureBuilder(
-                      //   future: getDocId(),
-                      //   builder: (context, snapshot) {
-                      //     if (snapshot.connectionState ==
-                      //         ConnectionState.waiting) {
-                      //       return CircularProgressIndicator();
-                      //     } else if (snapshot.hasError) {
-                      //       return Text('Error: ${snapshot.error}');
-                      //     } else {
-                      //       return ListView.builder(
-                      //         shrinkWrap: true,
-                      //         itemCount: docIDs.length,
-                      //         itemBuilder: (context, index) {
-                      //           final docId = docIDs[index];
-                      //           return Dismissible(
-                      //             key: Key(docId),
-                      //             onDismissed: (direction) {
-                      //               hapusData(docId);
-                      //               setState(() {
-                      //                 docIDs.removeAt(index);
-                      //               });
-                      //             },
-                      //             background: Container(
-                      //               color: Colors.red,
-                      //               child:
-                      //                   Icon(Icons.delete, color: Colors.white),
-                      //               alignment: Alignment.centerRight,
-                      //               padding: EdgeInsets.only(right: 20.0),
-                      //             ),
-                      //             child: ListTile(
-                      //               title: Text(docId),
-                      //             ),
-                      //           );
-                      //         },
-                      //       );
-                      //     }
-                      //   },
-                      // ),
                       StreamBuilder<QuerySnapshot>(
                         stream: _kunjunganStream,
                         builder: (context, snapshot) {
@@ -507,7 +462,6 @@ class _DashboardBidanState extends State<DashboardBidan> {
     );
   }
 }
-
 class PopupIcon extends StatelessWidget {
   const PopupIcon({Key? key}) : super(key: key);
   @override

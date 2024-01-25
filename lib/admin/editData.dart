@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: EditPage(docId: 'someDocumentId'), // Gantikan dengan ID dokumen yang sesuai
+      home: EditPage(docId: 'someDocumentId'), 
     );
   }
 }

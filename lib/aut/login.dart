@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
-
   @override
   State<Login> createState() => _LoginState();
 }
@@ -13,7 +12,7 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
-  // initialize firebase App
+  bool _isPasswordHidden = true;
   Future<FirebaseApp> _initializeFirebase() async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
     return firebaseApp;
@@ -59,7 +58,6 @@ class _LoginState extends State<Login> {
     );
   }
 
-  // ignore: override_on_non_overriding_member
   @override
   Widget _buildLoginScreen() {
     return Container(
@@ -121,7 +119,6 @@ class _LoginState extends State<Login> {
                     child: TextField(
                       controller: _emailController,
                       keyboardType: TextInputType.emailAddress,
-                      textAlign: TextAlign.center,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.account_circle_rounded,
@@ -149,8 +146,7 @@ class _LoginState extends State<Login> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextField(
                       controller: _passwordController,
-                      obscureText: true,
-                      textAlign: TextAlign.center,
+                      obscureText: _isPasswordHidden,
                       decoration: InputDecoration(
                         prefixIcon: Icon(
                           Icons.lock_outlined,
@@ -162,6 +158,18 @@ class _LoginState extends State<Login> {
                         border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0),
                           borderSide: BorderSide(),
+                        ),
+                        suffixIcon: IconButton(
+                          icon: Icon(
+                            _isPasswordHidden
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              _isPasswordHidden = !_isPasswordHidden;
+                            });
+                          },
                         ),
                       ),
                       style: TextStyle(
@@ -187,7 +195,6 @@ class _LoginState extends State<Login> {
                       context: context,
                     );
                     print(user);
-
                     if (user != null) {
                       Navigator.of(context).pushReplacement(
                         MaterialPageRoute(

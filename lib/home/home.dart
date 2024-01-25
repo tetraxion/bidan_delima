@@ -3,11 +3,13 @@ import 'package:bidan1/home/kontakBidan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
   @override
   State<Home> createState() => _HomeState();
 }
+
 class _HomeState extends State<Home> {
   late Stream<QuerySnapshot> _kunjunganStream;
   @override
@@ -16,6 +18,7 @@ class _HomeState extends State<Home> {
     _kunjunganStream =
         FirebaseFirestore.instance.collection('kunjungan').snapshots();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -265,86 +268,83 @@ class _HomeState extends State<Home> {
             Positioned(
               left: 0,
               right: 0,
-              top: 500,
-              child: SingleChildScrollView(
-                child: Container(
-                  height: MediaQuery.of(context).size.height,
-                  decoration: const BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(32.0),
-                      topRight: Radius.circular(32.0),
-                    ),
+              top: 490,
+              child: Container(
+                height: MediaQuery.of(context).size.height,
+                decoration: const BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(32.0),
+                    topRight: Radius.circular(32.0),
                   ),
-                  child: Column(
-                    children: [
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: Text(
-                            "Kunjungan Hari ini",
-                            textAlign: TextAlign.start,
-                            style: TextStyle(
-                              fontSize: 24.0,
-                              color: Colors.black,
-                            ),
+                ),
+                child: Column(
+                  children: [
+                    Container(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          "Kunjungan Hari ini",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            fontSize: 24.0,
+                            color: Colors.black,
                           ),
                         ),
                       ),
-                      StreamBuilder<QuerySnapshot>(
-                        stream: _kunjunganStream,
-                        builder: (context, snapshot) {
-                          if (snapshot.connectionState ==
-                              ConnectionState.waiting) {
-                            return CircularProgressIndicator();
-                          } else if (snapshot.hasError) {
-                            return Text('Error: ${snapshot.error}');
-                          } else {
-                            final List<QueryDocumentSnapshot> documents =
-                                snapshot.data!.docs;
-                            return ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: documents.length,
-                              itemBuilder: (context, index) {
-                                final data = documents[index].data()
-                                    as Map<String, dynamic>;
-                                return Padding(
-                                  padding: EdgeInsets.all(12.0),
-                                  child: Container(
-                                    height: 40,
-                                    width: 350,
-                                    decoration: BoxDecoration(
-                                      color: const Color.fromARGB(
-                                          255, 202, 196, 195),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(10.0),
-                                      ),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceEvenly,
-                                      children: [
-                                        Text(
-                                          data['nama'] ??
-                                              'Nama tidak ditemukan',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                        Text(
-                                          data['kunjungan'] ??
-                                              'Kunjungan tidak ditemukan',
-                                          style: TextStyle(fontSize: 20),
-                                        ),
-                                      ],
+                    ),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: _kunjunganStream,
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          final List<QueryDocumentSnapshot> documents =
+                              snapshot.data!.docs;
+                          return ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: documents.length,
+                            itemBuilder: (context, index) {
+                              final data = documents[index].data()
+                                  as Map<String, dynamic>;
+                              return Padding(
+                                padding: EdgeInsets.all(8.0),
+                                child: Container(
+                                  height: 40,
+                                  width: 350,
+                                  decoration: BoxDecoration(
+                                    color: const Color.fromARGB(
+                                        255, 202, 196, 195),
+                                    borderRadius: BorderRadius.all(
+                                      Radius.circular(10.0),
                                     ),
                                   ),
-                                );
-                              },
-                            );
-                          }
-                        },
-                      ),
-                    ],
-                  ),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        data['nama'] ?? 'Nama tidak ditemukan',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                      Text(
+                                        data['kunjungan'] ??
+                                            'Kunjungan tidak ditemukan',
+                                        style: TextStyle(fontSize: 20),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                    ),
+                  ],
                 ),
               ),
             ),
@@ -354,6 +354,7 @@ class _HomeState extends State<Home> {
     );
   }
 }
+
 class PopupIcon extends StatelessWidget {
   const PopupIcon({Key? key}) : super(key: key);
   @override
@@ -395,4 +396,4 @@ class PopupIcon extends StatelessWidget {
       ),
     );
   }
-}
+}
